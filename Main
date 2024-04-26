@@ -101,16 +101,11 @@ int main() {
 
     Library library;
 
-    Book book1(L"Война и мир", L"Лев Толстой", L"Классика", 1869, L"Исторический роман о наполеоновских войнах.");
-    Book book2(L"Преступление и наказание", L"Федор Достоевский", L"Классика", 1866, L"Роман о человеке, совершившем ужасное преступление.");
-    Book book3(L"Мастер и Маргарита", L"Михаил Булгаков", L"Фантастика", 1967, L"Фантастический роман о встрече с дьяволом.");
-
-    library.addBook(book1);
-    library.addBook(book2);
-    library.addBook(book3);
-
     int choice = 0;
     while (choice != 9) {
+        std::wstring title, author, genre, description;
+        int publicationYear, userId;
+
         std::wcout << L"Выберите действие:\n";
         std::wcout << L"1. Добавить книгу\n";
         std::wcout << L"2. Поиск книг по автору\n";
@@ -122,87 +117,3 @@ int main() {
         std::wcout << L"9. Выйти\n";
 
         std::wcin >> choice;
-
-        std::wstring title;
-        int userId;
-
-        switch (choice) {
-        case 1:
-            std::wcout << L"Введите название книги: ";
-            std::wcin.ignore();
-            std::getline(std::wcin, title);
-            std::wcout << L"Введите автора книги: ";
-            std::getline(std::wcin, title);
-            std::wcout << L"Введите жанр книги: ";
-            std::getline(std::wcin, title);
-            std::wcout << L"Введите год издания книги: ";
-            std::wcin >> userId;
-            std::wcout << L"Введите описание книги: ";
-            std::wcin.ignore();
-            std::getline(std::wcin, title);
-            library.addBook(Book(title, title, title, userId, title));
-            break;
-        case 2:
-            std::wcout << L"Введите автора для поиска: ";
-            std::wcin.ignore();
-            std::getline(std::wcin, title);
-            for (const auto& book : library.searchByAuthor(title)) {
-                std::wcout << L"Название: " << book.title() << std::endl;
-                std::wcout << L"Автор: " << book.author() << std::endl;
-                std::wcout << L"Жанр: " << book.genre() << std::endl;
-                std::wcout << L"Описание: " << book.description() << std::endl;
-                std::wcout << std::endl;
-            }
-            break;
-        case 3:
-            std::wcout << L"Введите название для поиска: ";
-            std::wcin.ignore();
-            std::getline(std::wcin, title);
-            for (const auto& book : library.searchByTitle(title)) {
-                std::wcout << L"Название: " << book.title() << std::endl;
-                std::wcout << L"Автор: " << book.author() << std::endl;
-                std::wcout << L"Жанр: " << book.genre() << std::endl;
-                std::wcout << L"Описание: " << book.description() << std::endl;
-                std::wcout << std::endl;
-            }
-            break;
-        case 4:
-            std::wcout << L"Введите жанр для поиска: ";
-            std::wcin.ignore();
-            std::getline(std::wcin, title);
-            for (const auto& book : library.searchByGenre(title)) {
-                std::wcout << L"Название: " << book.title() << std::endl;
-                std::wcout << L"Автор: " << book.author() << std::endl;
-                std::wcout << L"Жанр: " << book.genre() << std::endl;
-                std::wcout << L"Описание: " << book.description() << std::endl;
-                std::wcout << std::endl;
-            }
-            break;
-        case 5:
-            std::wcout << L"Введите название книги для резервирования: ";
-            std::wcin.ignore();
-            std::getline(std::wcin, title);
-            std::wcout << L"Введите ID пользователя: ";
-            std::wcin >> userId;
-            library.reserveBook(title, userId);
-            break;
-        case 6:
-            std::wcout << L"Введите ID пользователя для просмотра зарезервированных книг: ";
-            std::wcin >> userId;
-            for (const auto& title : library.getReservedBooks(userId)) {
-                std::wcout << title << std::endl;
-            }
-            break;
-        case 7:
-            std::wcout << L"Введите название книги для отмены резервации: ";
-            std::wcin.ignore();
-            std::getline(std::wcin, title);
-            std::wcout << L"Введите ID пользователя: ";
-            std::wcin >> userId;
-            library.cancelReservation(title, userId);
-            break;
-        }
-    }
-
-    return 0;
-}
